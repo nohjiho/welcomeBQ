@@ -1,0 +1,14 @@
+1. 로컬 메이븐 리포지토리에 jar 파일 등록
+
+mvnw install:install-file -Dfile=src/libs/ojdbc6-11g.jar -DgroupId=com.oracle -DartifactId=ojdbc6-11g -Dversion=11.2.0.4.0 -Dpackaging=jar
+
+2. 테스트DB(TMIS) 연동 위한 파일 생성
+
+루트 폴더에 application.properties 파일을 생성한다.
+파일 내용은 application.properties.sample 파일을 참고해서 작성한다.
+아래 두 줄만 알맞게 설정해주면 된다.
+
+spring.datasource.username=본인DB계정
+spring.datasource.password=본인DB암호
+
+* 루트 폴더의 application.properties 파일은 버전 관리 대상이 아니다.

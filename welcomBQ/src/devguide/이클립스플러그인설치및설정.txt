@@ -1,0 +1,27 @@
+1. JDK 1.8 설치
+
+2. 이클립스 
+아래 사이트에서 Eclipse IDE for Java EE Developers 다운받아 설치
+
+http://www.eclipse.org/downloads/eclipse-packages/
+
+3. Lombok 다운로드 및 설치
+
+https://projectlombok.org/download 사이트에서 lombok.jar 파일 다운로드
+명령 프롬프트에서 java -jar lombok.jar 실행해서 롬복 플러그인 이클립스에서 설치(https://projectlombok.org/setup/eclipse 참고)
+이클립스 경로를 지정해준다.
+
+3. 이클립스 실행
+
+SVN 플러그인 설치
+
+* Help > Eclipse Marketplace 실행
+* Subclipse나 Subversive 설치
+
+4. maven-processor-plugin을 위한 m2e connector 설치
+
+1) Window > Preferences > Maven > Discovery 메뉴
+2) Open Catalog
+3) Maven Integration for Eclipse JDT APT를 위한 m2e connector 검색 후 설치 (m2e-apt 또는 JDT로 검색)
+4) 설치 완료하면 재시작
+5) Window > Preferences > Maven > Maven에서 Annotation Processing으로 'Automatically configure JDT API' 선택 
