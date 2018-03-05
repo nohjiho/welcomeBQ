@@ -1,3 +1,4 @@
+customer_id,first_name,last_name,curent_credit_card,email,address_street_number,address_city,address_state,address_zip,region,phone_number,start_date,end_date
 11df1f41946907e669537a91abbc00a8,ERINN,DZVONIK,4189090828557714,dzvonik30@att.net,9195 George Street,Cleveland,OH,44121,midwest,(216)926-9604,2015-07-06,
 4492253f59a6196ade3830684ad6c2a6,CHUAN,VOROBYEV,,,,,,,,,,
 0f43c1e3277a0eec815e553f19e533de,JACE,BURUATO,,jburuato62@gmail.com,,,,,,,,
