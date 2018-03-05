@@ -14,9 +14,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.cloud.bigquery.BigQuery;
@@ -24,10 +26,15 @@ import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.bigquery.Dataset;
 import com.google.cloud.bigquery.DatasetInfo;
 import com.google.cloud.bigquery.Field;
+import com.google.cloud.bigquery.FieldValueList;
 import com.google.cloud.bigquery.FormatOptions;
 import com.google.cloud.bigquery.Job;
+import com.google.cloud.bigquery.JobId;
+import com.google.cloud.bigquery.JobInfo;
 import com.google.cloud.bigquery.JobStatistics.LoadStatistics;
 import com.google.cloud.bigquery.LegacySQLTypeName;
+import com.google.cloud.bigquery.QueryJobConfiguration;
+import com.google.cloud.bigquery.QueryResponse;
 import com.google.cloud.bigquery.Schema;
 import com.google.cloud.bigquery.StandardTableDefinition;
 import com.google.cloud.bigquery.Table;
@@ -50,6 +57,7 @@ public class BigQueryIntTest {
 	/**
 	 * 데이터셋 생성
 	 */
+	@Ignore
 	@Test
 	public void testBigQuery_create_dataset() {
 		
@@ -59,7 +67,7 @@ public class BigQueryIntTest {
 	    // GOOGLE_APPLICATION_CREDENTIALS environment variable.
 		BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 		
-		String datasetName = "DataSetGood4"; //lab
+		String datasetName = "DataSetGood5"; //lab
 		
 		Dataset dataset = null;
 		DatasetInfo datasetInfo = DatasetInfo.newBuilder(datasetName).build();
@@ -67,11 +75,13 @@ public class BigQueryIntTest {
 		System.out.println("Dataset created : " + dataset.getDatasetId().getDataset());
 		assertThat(dataset.getDatasetId().getDataset()).isEqualTo(datasetName);
 		
+		//TODO 생성한 데이터셋 삭제
 	}
 	
 	/**
 	 * 테이블 생성
 	 */
+	@Ignore
 	@Test
 	public void testBigQuery_create_table() {
 		BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
@@ -103,6 +113,8 @@ public class BigQueryIntTest {
 		
 		System.out.println("createdTable.getTableId() : " + createdTable.getTableId());
 		assertThat(createdTable.getTableId()).isEqualTo("lab_customers");
+		
+		//TODO 생성한 테이블 삭제
 	}
 	
 	/**
@@ -110,6 +122,7 @@ public class BigQueryIntTest {
 	 * csv 파일에 헤더가 없어야 함.
 	 * 날짜 형식은 YYYY-MM-DD 이여야 함. 날짜형식이 다르면 오류 발생.
 	 */
+	@Ignore
 	@Test
 	public void testBigQuery_dataload() {
 		TableDataWriteChannel writer = null;
@@ -122,7 +135,7 @@ public class BigQueryIntTest {
 			WriteChannelConfiguration writeChannelConfiguration = WriteChannelConfiguration.newBuilder(tableId).setFormatOptions(FormatOptions.csv()).build();
 			writer = bigquery.writer(writeChannelConfiguration);
 			// Write data to writer
-			try (OutputStream stream = Channels.newOutputStream(writer)) {
+			try(OutputStream stream = Channels.newOutputStream(writer)) {
 				Files.copy(csvPath, stream);
 			}
 			
@@ -141,6 +154,70 @@ public class BigQueryIntTest {
 	}
 	
 	
+	@Test
+	public void testBigQuery_QueryingData() {
+		// [START bigquery_simple_app_client]
+	    BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
+	    // [END bigquery_simple_app_client]
+	    // [START bigquery_simple_app_query]
+	    QueryJobConfiguration queryConfig =
+	        QueryJobConfiguration.newBuilder(
+	        		"   select "
+	        		+ "		customer_id , "
+	        		+ " 	email "
+	        		+ " from lab.lab_customers "
+    				+ " where start_date is not null "
+    				+ "   and end_date is not null "
+    				+ "   and email like '%gmail%' "
+    				+ " order by start_date desc "
+    				+ " limit 10 ")
+//	        		 "SELECT "
+//	                 + "CONCAT('https://stackoverflow.com/questions/', CAST(id as STRING)) as url, "
+//	                 + "view_count "
+//	                 + "FROM `bigquery-public-data.stackoverflow.posts_questions` "
+//	                 + "WHERE tags like '%google-bigquery%' "
+//	                 + "ORDER BY favorite_count DESC LIMIT 10")
+	            // Use standard SQL syntax for queries.
+	            // See: https://cloud.google.com/bigquery/sql-reference/
+	            .setUseLegacySql(false)	//legacy : ture , standard : false 
+	            .build();
+
+	    // Create a job ID so that we can safely retry.
+	    JobId jobId = JobId.of(UUID.randomUUID().toString());
+	    Job queryJob = bigquery.create(JobInfo.newBuilder(queryConfig).setJobId(jobId).build());
+
+	    // Wait for the query to complete.
+	    try {
+			queryJob = queryJob.waitFor();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	    // Check for errors
+	    if (queryJob == null) {
+	    	throw new RuntimeException("Job no longer exists");
+	    } else if (queryJob.getStatus().getError() != null) {
+	    	// You can also look at queryJob.getStatus().getExecutionErrors() for all
+	    	// errors, not just the latest one.
+	    	throw new RuntimeException(queryJob.getStatus().getError().toString());
+	    }
+	    // [END bigquery_simple_app_query]
+
+	    // [START bigquery_simple_app_print]
+	    // Get the results.
+	    QueryResponse response = bigquery.getQueryResults(jobId);
+
+	    // Print all pages of the results.
+	    for (FieldValueList row : response.getResult().iterateAll()) {
+	    	String customerId = row.get("customer_id").getStringValue();
+	    	String email = row.get("email").getStringValue();
+	    	System.out.println("customerId : " + customerId);
+	    	System.out.println("email : " + email);
+	    }
+	    // [END bigquery_simple_app_print]
+	}
+	
 	/**
 	 * Dec 22 2015 같은 날짜 형식을 인식하지 못함.
 	 * @param args
@@ -153,10 +230,9 @@ public class BigQueryIntTest {
 			e.printStackTrace();
 		}
 	}
+
 	
 	private void csvFileDateConvert() {
-		//SimpleDateFormat inSDF = new SimpleDateFormat("MMM dd yyyy");
-		//SimpleDateFormat outSDF = new SimpleDateFormat("yyyy-mm-dd");
 		FileWriter writer = null;
 		try(Stream<String> lines = Files.lines((Paths.get("C:/project/git/welcomeBQ/welcomBQ/sampledata/lab_customers_ori.csv")))){
 			List<String> values = lines.collect(Collectors.toList());
