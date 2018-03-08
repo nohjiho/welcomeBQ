@@ -32,6 +32,7 @@ import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.bigquery.Dataset;
 import com.google.cloud.bigquery.DatasetInfo;
 import com.google.cloud.bigquery.Field;
+import com.google.cloud.bigquery.Field.Mode;
 import com.google.cloud.bigquery.FieldValueList;
 import com.google.cloud.bigquery.FormatOptions;
 import com.google.cloud.bigquery.InsertAllRequest;
@@ -168,19 +169,19 @@ public class BigQueryIntTest {
 		TableId tableId = TableId.of(datasetId, "lab_customers");
 		// Table field definition
 		List<Field> fields = new ArrayList<>();
-		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").build());
-		fields.add(Field.of("first_name", LegacySQLTypeName.STRING).toBuilder().setDescription("첫번째 이름").build());
-		fields.add(Field.of("last_name", LegacySQLTypeName.STRING).toBuilder().setDescription("마지막 이름").build());
-		fields.add(Field.of("curent_credit_card", LegacySQLTypeName.STRING).toBuilder().setDescription("카드번호").build());
-		fields.add(Field.of("email", LegacySQLTypeName.STRING).toBuilder().setDescription("이메일").build());
-		fields.add(Field.of("address_street_number", LegacySQLTypeName.STRING).toBuilder().setDescription("거리번호").build());
-		fields.add(Field.of("address_city", LegacySQLTypeName.STRING).toBuilder().setDescription("도시 주소").build());
-		fields.add(Field.of("address_state", LegacySQLTypeName.STRING).toBuilder().setDescription("국가 주소 ").build());
-		fields.add(Field.of("address_zip", LegacySQLTypeName.STRING).toBuilder().setDescription("우편번호").build());
-		fields.add(Field.of("region", LegacySQLTypeName.STRING).toBuilder().setDescription("지역").build());
-		fields.add(Field.of("phone_number", LegacySQLTypeName.STRING).toBuilder().setDescription("전화번호").build());
-		fields.add(Field.of("start_date", LegacySQLTypeName.DATE).toBuilder().setDescription("시작일자").build());
-		fields.add(Field.of("end_date", LegacySQLTypeName.DATE).toBuilder().setDescription("종료일자").build());
+		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("first_name", LegacySQLTypeName.STRING).toBuilder().setDescription("첫번째 이름").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("last_name", LegacySQLTypeName.STRING).toBuilder().setDescription("마지막 이름").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("curent_credit_card", LegacySQLTypeName.STRING).toBuilder().setDescription("카드번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("email", LegacySQLTypeName.STRING).toBuilder().setDescription("이메일").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_street_number", LegacySQLTypeName.STRING).toBuilder().setDescription("거리번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_city", LegacySQLTypeName.STRING).toBuilder().setDescription("도시 주소").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_state", LegacySQLTypeName.STRING).toBuilder().setDescription("국가 주소 ").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_zip", LegacySQLTypeName.STRING).toBuilder().setDescription("우편번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("region", LegacySQLTypeName.STRING).toBuilder().setDescription("지역").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("phone_number", LegacySQLTypeName.STRING).toBuilder().setDescription("전화번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("start_date", LegacySQLTypeName.DATE).toBuilder().setDescription("시작일자").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("end_date", LegacySQLTypeName.DATE).toBuilder().setDescription("종료일자").setMode(Mode.NULLABLE).build());
 		//Table schema definition
 		Schema schema = Schema.of(fields);
 		
@@ -204,19 +205,19 @@ public class BigQueryIntTest {
 		TableId tableId = TableId.of(datasetId, "lab_customers");
 		// Table field definition
 		List<Field> fields = new ArrayList<>();
-		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").build());
-		fields.add(Field.of("first_name", LegacySQLTypeName.STRING).toBuilder().setDescription("첫번째 이름").build());
-		fields.add(Field.of("last_name", LegacySQLTypeName.STRING).toBuilder().setDescription("마지막 이름").build());
-		fields.add(Field.of("curent_credit_card", LegacySQLTypeName.STRING).toBuilder().setDescription("카드번호").build());
-		fields.add(Field.of("email", LegacySQLTypeName.STRING).toBuilder().setDescription("이메일").build());
-		fields.add(Field.of("address_street_number", LegacySQLTypeName.STRING).toBuilder().setDescription("거리번호").build());
-		fields.add(Field.of("address_city", LegacySQLTypeName.STRING).toBuilder().setDescription("도시 주소").build());
-		fields.add(Field.of("address_state", LegacySQLTypeName.STRING).toBuilder().setDescription("국가 주소 ").build());
-		fields.add(Field.of("address_zip", LegacySQLTypeName.STRING).toBuilder().setDescription("우편번호").build());
-		fields.add(Field.of("region", LegacySQLTypeName.STRING).toBuilder().setDescription("지역").build());
-		fields.add(Field.of("phone_number", LegacySQLTypeName.STRING).toBuilder().setDescription("전화번호").build());
-		fields.add(Field.of("start_date", LegacySQLTypeName.DATE).toBuilder().setDescription("시작일자").build());
-		fields.add(Field.of("end_date", LegacySQLTypeName.DATE).toBuilder().setDescription("종료일자").build());
+		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("first_name", LegacySQLTypeName.STRING).toBuilder().setDescription("첫번째 이름").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("last_name", LegacySQLTypeName.STRING).toBuilder().setDescription("마지막 이름").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("curent_credit_card", LegacySQLTypeName.STRING).toBuilder().setDescription("카드번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("email", LegacySQLTypeName.STRING).toBuilder().setDescription("이메일").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_street_number", LegacySQLTypeName.STRING).toBuilder().setDescription("거리번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_city", LegacySQLTypeName.STRING).toBuilder().setDescription("도시 주소").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_state", LegacySQLTypeName.STRING).toBuilder().setDescription("국가 주소 ").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("address_zip", LegacySQLTypeName.STRING).toBuilder().setDescription("우편번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("region", LegacySQLTypeName.STRING).toBuilder().setDescription("지역").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("phone_number", LegacySQLTypeName.STRING).toBuilder().setDescription("전화번호").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("start_date", LegacySQLTypeName.DATE).toBuilder().setDescription("시작일자").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("end_date", LegacySQLTypeName.DATE).toBuilder().setDescription("종료일자").setMode(Mode.NULLABLE).build());
 		//Table schema definition
 		Schema schema = Schema.of(fields);
 		
@@ -244,11 +245,11 @@ public class BigQueryIntTest {
 		TableId tableId = TableId.of(datasetId, "lab_transactions");
 		// Table field definition
 		List<Field> fields = new ArrayList<>();
-		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").build());
-		fields.add(Field.of("transaction_date", LegacySQLTypeName.DATE).toBuilder().setDescription("업무일자").build());
-		fields.add(Field.of("ticket_price", LegacySQLTypeName.FLOAT).toBuilder().setDescription("티켓 가격").build());
-		fields.add(Field.of("discount", LegacySQLTypeName.STRING).toBuilder().setDescription("할인률").build());
-		fields.add(Field.of("product", LegacySQLTypeName.STRING).toBuilder().setDescription("제품").build());
+		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("transaction_date", LegacySQLTypeName.DATE).toBuilder().setDescription("업무일자").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("ticket_price", LegacySQLTypeName.FLOAT).toBuilder().setDescription("티켓 가격").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("discount", LegacySQLTypeName.STRING).toBuilder().setDescription("할인률").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("product", LegacySQLTypeName.STRING).toBuilder().setDescription("제품").setMode(Mode.REQUIRED).build());
 		//Table schema definition
 		Schema schema = Schema.of(fields);
 		
@@ -264,19 +265,19 @@ public class BigQueryIntTest {
 	/**
 	 * 일별 파티셔닝 테이블 생성
 	 */
-	//@Ignore
+	@Ignore
 	@Test
 	public void testBigQuery_create_table_trans_patitioning() {
 		BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 		
-		TableId tableId = TableId.of(datasetId, "lab_transactions_3");
+		TableId tableId = TableId.of(datasetId, "lab_transactions");
 		// Table field definition
 		List<Field> fields = new ArrayList<>();
-		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").build());
-		fields.add(Field.of("transaction_date", LegacySQLTypeName.DATE).toBuilder().setDescription("업무일자").build());
-		fields.add(Field.of("ticket_price", LegacySQLTypeName.FLOAT).toBuilder().setDescription("티켓 가격").build());
-		fields.add(Field.of("discount", LegacySQLTypeName.STRING).toBuilder().setDescription("할인률").build());
-		fields.add(Field.of("product", LegacySQLTypeName.STRING).toBuilder().setDescription("제품").build());
+		fields.add(Field.of("customer_id", LegacySQLTypeName.STRING).toBuilder().setDescription("고객번호").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("transaction_date", LegacySQLTypeName.DATE).toBuilder().setDescription("업무일자").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("ticket_price", LegacySQLTypeName.FLOAT).toBuilder().setDescription("티켓 가격").setMode(Mode.REQUIRED).build());
+		fields.add(Field.of("discount", LegacySQLTypeName.STRING).toBuilder().setDescription("할인률").setMode(Mode.NULLABLE).build());
+		fields.add(Field.of("product", LegacySQLTypeName.STRING).toBuilder().setDescription("제품").setMode(Mode.REQUIRED).build());
 		//Table schema definition
 		Schema schema = Schema.of(fields);
 		
@@ -314,6 +315,7 @@ public class BigQueryIntTest {
 	
 	/**
 	 * 테이블에 데이터 로드
+	 * 파일 전체 데이터 중 하나의 row라도 제약조건에 맞지 않으면 전체가 등록되지 않음.
 	 * csv 파일에 헤더가 없어야 함.
 	 * 날짜 형식은 YYYY-MM-DD 이여야 함. 날짜형식이 다르면 오류 발생.
 	 * partitioning : tableId$20180306 (partitionDate)
