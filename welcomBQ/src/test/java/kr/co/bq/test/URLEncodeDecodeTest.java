@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class URLEncodeDecodeTest {
@@ -40,10 +41,10 @@ public class URLEncodeDecodeTest {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void test_FileRread() {
 		String fileName = "C://Users//웰컴저축은행//Desktop//웰컴저축은행//개발관련//구글클라우드//구글클라우드쉘/구글클라우드쉘_요청URL목록_180219.txt";
-		
 		
 		try {
 			Stream<String> fileStream = Files.lines(Paths.get(fileName));

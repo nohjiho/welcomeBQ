@@ -74,6 +74,45 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.cloud</groupId>
+		    <artifactId>google-cloud-core</artifactId>
+		    <version>1.17.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.cloud</groupId>
+		    <artifactId>google-cloud-core-http</artifactId>
+		    <version>1.17.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.google.auto.value</groupId>
+		    <artifactId>auto-value</artifactId>
+		    <version>1.5.3</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+	      <groupId>com.google.cloud</groupId>
+	      <artifactId>google-cloud-storage</artifactId>
+	      <version>1.17.0</version> <!-- version confirm -->
+	      <scope>test</scope>
+	    </dependency>
+		<dependency>
+	      <groupId>com.google.apis</groupId>
+	      <artifactId>google-api-services-bigquery</artifactId>
+	      <scope>compile</scope>
+	      <exclusions>
+	        <exclusion>
+	          <groupId>com.google.guava</groupId>
+	          <artifactId>guava-jdk5</artifactId>
+	        </exclusion>
+	      </exclusions>
+	    </dependency>
+	    <dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-bigquery</artifactId>
+		    <version>v2-rev375-1.23.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-bigquery</artifactId>
@@ -89,28 +128,7 @@
 	      <artifactId>joda-time</artifactId>
 	      <version>2.9.9</version>
 	    </dependency>
-	    
-		<dependency>
-		    <groupId>com.google.apis</groupId>
-		    <artifactId>google-api-services-bigquery</artifactId>
-		    <version>v2-rev375-1.23.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.auto.value</groupId>
-		    <artifactId>auto-value</artifactId>
-		    <version>1.5.3</version>
-		    <scope>provided</scope>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.cloud</groupId>
-		    <artifactId>google-cloud-core</artifactId>
-		    <version>1.17.0</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.google.cloud</groupId>
-		    <artifactId>google-cloud-core-http</artifactId>
-		    <version>1.17.0</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.google.cloud.dataflow</groupId>
 			<artifactId>google-cloud-dataflow-java-sdk-all</artifactId>
