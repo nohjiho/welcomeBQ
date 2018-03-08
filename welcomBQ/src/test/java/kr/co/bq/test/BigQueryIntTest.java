@@ -356,13 +356,15 @@ public class BigQueryIntTest {
 	
 	/**
 	 * 테이블에 데이터 로드(lab_2013_transactions.csv , lab_2014_transactions.csv , lab_2015_transactions.csv)
+	 * 4MB --> 39s 
+	 * 11M -> 71s
 	 */
 	@Ignore
 	@Test
 	public void testBigQuery_writeCsvFileToTable_trans() {
 		TableDataWriteChannel writer = null;
 		try {
-			Path csvPath = Paths.get("C:/project/git/welcomeBQ/welcomBQ/sampledata/lab_2015_transactions.csv");
+			Path csvPath = Paths.get("C:/project/git/welcomeBQ/welcomBQ/sampledata/lab_2017_transactions.csv");
 			
 			BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 			TableId tableId = TableId.of(datasetId, "lab_transactions");
