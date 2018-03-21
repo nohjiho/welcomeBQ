@@ -83,7 +83,7 @@ public class BigQueryIntTest {
 		//fail("Not yet implemented");
 		boolean flag = true;
 		BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
-		System.out.println("getHost : " + bigquery.getOptions().getHost());
+		System.out.println("getHost : " + bigquery.getOptions().getHost());	//https://www.googleapis.com
 		System.out.println("getLibraryVersion : " + bigquery.getOptions().getLibraryVersion());
 		System.out.println("getApplicationName : " + bigquery.getOptions().getApplicationName());
 		System.out.println("getProjectId : " + bigquery.getOptions().getProjectId());
